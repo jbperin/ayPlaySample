@@ -54,26 +54,26 @@ _kernelInit_4kHz:
 	sei
 
 	; Save the old handler value
-	lda $245
-	sta old_handler
-	lda $246
-	sta old_handler+1
+	lda 	$245
+	sta 	old_handler
+	lda 	$246
+	sta 	old_handler+1
 
 
 	lda 	#160 ; 4000 / 25 Hz
 	sta		itCounter
 
 	;; Set the VIA parameters (250 = 4Khz, )
-	lda #<VIA_TIMER_DELAY_4KHZ
-	sta $306 ;; via_t1ll
-	lda #>VIA_TIMER_DELAY_4KHZ
-	sta $307 ;; via_t1lh
+	lda 	#<(VIA_TIMER_DELAY_4KHZ-4)
+	sta 	via_t1ll ;; $306 ;;
+	lda 	#>(VIA_TIMER_DELAY_4KHZ-4)
+	sta 	via_t1lh ;; $307 ;; 
 
 	; Install our own handler
-	lda #<irq_handler_4khz
-	sta $245
-	lda #>irq_handler_4khz
-	sta $246
+	lda 	#<irq_handler_4khz
+	sta 	$245
+	lda 	#>irq_handler_4khz
+	sta 	$246
 
 
 	RESTARTSAMPLE
