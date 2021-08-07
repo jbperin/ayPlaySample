@@ -1,6 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#define NB_REGISTER 	14
-#define NB_SAMPLE		18
-#define NB_GROUP        8
-#define NB_FRAME        NB_SAMPLE*NB_GROUP
+#define USE_KEYBOARD_INTERRUPT
 
+#endif // CONFIG_H

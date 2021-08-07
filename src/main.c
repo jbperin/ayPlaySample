@@ -1,6 +1,7 @@
 #include <lib.h>
 
 unsigned short 			running;
+extern unsigned char 	nbE_keybuf;
 
 
 void keyPressed(unsigned char c){
@@ -9,7 +10,6 @@ void keyPressed(unsigned char c){
 
 void keyReleased(unsigned char c){
 }
-extern unsigned char 	nbE_keybuf;
 
 void lsys(){
 	unsigned char c;
@@ -30,15 +30,11 @@ void main()
     // Deactivate cursor and keyclick
     mode0 = peek(0x26A);poke(0x26A, (mode0 | 0x08) & 0xFE);
 
-	// printf("Press a key to end.\n");
-
-	// c=get();
-	// printf ("c=%c",c);
 	ayInit();
 
 	kernelInit_4kHz();
 
-	for (running = 2; running; ) lsys();
+	for (running = 1; running; ) lsys();
 
 	kernelEnd();
 

@@ -1,12 +1,12 @@
-
 #include "via.h"
 #include "tasks_s.s"
+#include "config.h"
+
+
 
 ;; 4Khz
 #define VIA_TIMER_DELAY_4KHZ	250    
 #define VIA_TIMER_DELAY_8KHZ	125    
-
-#define NB_IT_4KHZ		40
 
 .zero
 
@@ -15,7 +15,9 @@ irq_A               .byt 0
 irq_X               .byt 0
 irq_Y               .byt 0
 
+#ifdef USE_KEYBOARD_INTERRUPT
 itCounter			.byt 0
+#endif
 
 .text
 
@@ -26,13 +28,14 @@ old_handler			.dsb 2
 irq_handler_4khz:
 .(
 
-;;	;Preserve registers 
+	;Preserve registers 
 	sta 	irq_A: stx 	irq_X: sty 	irq_Y
-;;
+
 	jsr TASK_4KHZ ;  TASK_4KHZ_4BITS ; 
 
 	bit $304
 
+#ifdef USE_KEYBOARD_INTERRUPT
  	dec itCounter: bne not100Hz 
 
 	lda #160: sta itCounter ; 4000 / 25 Hz
@@ -40,14 +43,13 @@ irq_handler_4khz:
 	TASK_25Hz
 
 not100Hz	
+#endif // USE_KEYBOARD_INTERRUPT
+
 	;Restore Registers 
 	lda irq_A: ldx 	irq_X: ldy 	irq_Y
 
 	rti
 .)
-
-
-
 
 _kernelInit_4kHz:
 .(
@@ -59,9 +61,10 @@ _kernelInit_4kHz:
 	lda 	$246
 	sta 	old_handler+1
 
-
+#ifdef USE_KEYBOARD_INTERRUPT
 	lda 	#160 ; 4000 / 25 Hz
 	sta		itCounter
+#endif
 
 	;; Set the VIA parameters (250 = 4Khz, )
 	lda 	#<(VIA_TIMER_DELAY_4KHZ-4)
@@ -79,27 +82,28 @@ _kernelInit_4kHz:
 	RESTARTSAMPLE
 
     cli 
-    rts
 .)
+    rts
 
 
 
 _kernelEnd:
 .(
 	sei
+
 	; Restore the old handler value
-	lda old_handler
-	sta $245
-	lda old_handler+1
-	sta $246
+	lda 	old_handler
+	sta 	$245
+	lda 	old_handler+1
+	sta 	$246
 
 	;; Restore  VIA parameters
-	lda #10
-	sta via_t1ll
-	lda #$27
-	sta via_t1lh
+	lda 	#10
+	sta 	via_t1ll
+	lda 	#$27
+	sta 	via_t1lh
 
 	cli
-    rts
 .)
+    rts
 

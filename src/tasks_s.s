@@ -1,19 +1,17 @@
 #include "macros_s.h"
 #include "nbsample.h"
+#include "config.h"
 
 .zero
 
-_ptr_wrt1 .dsb 2
-_ptr_wrt2 .dsb 2
-_ptr_wrt3 .dsb 2
+_ptr_wrt1       .dsb 2
+_ptr_wrt2       .dsb 2
+_ptr_wrt3       .dsb 2
 
-_position_high   .dsb 1
-_position_low    .dsb 1
-
-
+_position_high  .dsb 1
+_position_low   .dsb 1
 
 .text
-
 
 TASK_4KHZ:
 .(
@@ -85,15 +83,13 @@ task4kHz_done
 .)
     rts
 
-
-
-
+#ifdef USE_KEYBOARD_INTERRUPT
 #define TASK_25Hz :.(:\
     pha:txa:pha:tya:pha:\
     jsr ReadKeyboard:\
     jsr detectKeyEvent:\
     pla:tay:pla:tax:pla:\
 .)
-
+#endif //USE_KEYBOARD_INTERRUPT
 
 
