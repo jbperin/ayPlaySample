@@ -6,12 +6,20 @@
 ::
 IF "%OSDK%"=="" GOTO ErCfg
 
+::
+:: Set the build paremeters
+::
+CALL osdk_config.bat
 
-%osdk%\bin\MemMap.exe build\symbols_intro map_intro.htm Intro %OSDK%\documentation\documentation.css
-%osdk%\bin\MemMap.exe build\symbols_techtech map_techtech.htm TechTech %OSDK%\documentation\documentation.css
-explorer map_intro.htm 
-explorer map_techtech.htm
+::
+:: Generate the HTML file
+::
+%OSDK%\bin\MemMap.exe build\symbols build\map.htm %OSDKNAME% %OSDK%\documentation\documentation.css
 
+::
+:: Display the HTML file
+::
+build\map.htm
 
 GOTO End
 
