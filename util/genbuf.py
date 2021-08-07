@@ -1,7 +1,8 @@
 
 from Welcome import Out
+OUTPUT_FILENAME     = 'src/soundbuf.s'
+OUTPUT_MACRO        = 'src/nbsample.h'
 
-OUTPUT_FILENAME =   'util/Welcome.out'
 
 from codegen import buffer2asmCode
 import numpy as np
@@ -62,7 +63,7 @@ for i in range(len(S3)):
         curV3[-1][inp]      = sum([vol [v] for v in list(S3[nxtS3[i][inp]])])
         curV3[-1][inp+16]   = sum([vol [v] for v in list(S3[nxtS3[i][inp+16]])])
         curV3[-1][inp+32]   = sum([vol [v] for v in list(S3[nxtS3[i][inp+32]])])
-# print (len(nxtS3), len(curV3[0]))
+
 
 vol = [2**((x-15)/2) for x in range (NB_VAL)]
 vol [0] = 0
@@ -103,19 +104,15 @@ def main ():
             print ("ERROR")
         ii = (ii + 1)%3
 
-    # print (wrt1)
-    # print (wrt2)
-    # print (wrt3)
-
     bwrt1 = [(idx+8)*16+val for (idx, val) in wrt1]
     bwrt2 = [(idx+8)*16+val for (idx, val) in wrt2]
     bwrt3 = [(idx+8)*16+val for (idx, val) in wrt3]
 
-    # print (bwrt1)
-    # print (bwrt2)
-    # print (bwrt3)
-    with open (OUTPUT_FILENAME, 'w') as f:
+    with open (OUTPUT_MACRO, 'w') as f:
         f.write('#define NB_SAMPLE %d\n'%len(bwrt1))
+
+    with open (OUTPUT_FILENAME, 'w') as f:
+        f.write(".text\n")
         f.write("\n.dsb 256-(*&255)\n" + buffer2asmCode("bwrt1", bwrt1) + '\n')
         f.write("\n.dsb 256-(*&255)\n" + buffer2asmCode("bwrt2", bwrt2) + '\n')
         f.write("\n.dsb 256-(*&255)\n" + buffer2asmCode("bwrt3", bwrt3) + '\n')

@@ -1,39 +1,4 @@
-
-.zero
-
-_ptr_wrt1 .dsb 2
-_ptr_wrt2 .dsb 2
-_ptr_wrt3 .dsb 2
-
-_position_high   .dsb 1
-_position_low    .dsb 1
-
-
-
 .text
-
-reinitbuf:
-.(
-	lda #<_bwrt1
-	sta _ptr_wrt1
-	lda #>_bwrt1
-	sta _ptr_wrt1+1
-
-	lda #<_bwrt2
-	sta _ptr_wrt2
-	lda #>_bwrt2
-	sta _ptr_wrt2+1
-
-	lda #<_bwrt3
-	sta _ptr_wrt3
-	lda #>_bwrt3
-	sta _ptr_wrt3+1
-
-	lda #0
-	sta _position_low
-	sta _position_high
-.)
-    rts
 
 .dsb 256-(*&255)
 _bwrt1

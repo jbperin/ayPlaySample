@@ -1,6 +1,15 @@
 #include "macros_s.h"
+#include "nbsample.h"
 
 .zero
+
+_ptr_wrt1 .dsb 2
+_ptr_wrt2 .dsb 2
+_ptr_wrt3 .dsb 2
+
+_position_high   .dsb 1
+_position_low    .dsb 1
+
 
 
 .text
@@ -15,7 +24,6 @@ TASK_4KHZ:
 
     lda     (_ptr_wrt1), y
     tax
-    and     #$F0
     lsr
     lsr
     lsr
@@ -25,11 +33,9 @@ TASK_4KHZ:
     and     #$0F
     LATCH_REG_VALUE
 
-    ; lda chan1: LATCH_REG_NUMBER: lda signal1: LATCH_REG_VALUE
 secval
     lda     (_ptr_wrt2), y
     tax
-    and     #$F0
     lsr
     lsr
     lsr
@@ -39,11 +45,9 @@ secval
     and     #$0F
     LATCH_REG_VALUE
 
-;    lda chan2: LATCH_REG_NUMBER: lda signal2: LATCH_REG_VALUE
 thirval
     lda     (_ptr_wrt3), y
     tax
-    and     #$F0
     lsr
     lsr
     lsr
@@ -53,7 +57,6 @@ thirval
     and     #$0F
     LATCH_REG_VALUE
 endval
-;    lda chan3: LATCH_REG_NUMBER: lda signal3: LATCH_REG_VALUE
 
 
     inc     _position_low
