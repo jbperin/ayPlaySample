@@ -15,8 +15,6 @@ _position_low    .dsb 1
 .text
 
 
-#define NB_SAMPLE 7440
-
 TASK_4KHZ:
 .(
    
