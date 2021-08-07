@@ -76,7 +76,7 @@ _kernelInit_4kHz:
 	sta $246
 
 
-	jsr reinitbuf	
+	RESTARTSAMPLE
 
     cli 
     rts

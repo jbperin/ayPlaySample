@@ -1,11 +1,10 @@
+#include "macros_s.h"
 
 .zero
 
 
 .text
 
-#define LATCH_REG_NUMBER     sta via_porta:lda #$EE:sta via_pcr:lda #$CC: sta via_pcr
-#define LATCH_REG_VALUE      sta via_porta:lda #$EC:sta via_pcr:lda #$CC: sta via_pcr
 
 #define NB_SAMPLE 7440
 
@@ -71,33 +70,15 @@ skipNext256
 
     lda     _position_low
     cmp     #<NB_SAMPLE 
-    bne     skipResume
+    bne     skipRestart
 
     lda     _position_high
     cmp     #>NB_SAMPLE
-    bne     skipResume
+    bne     skipRestart
 
-restartsample
-	lda #<_bwrt1
-	sta _ptr_wrt1
-	lda #>_bwrt1
-	sta _ptr_wrt1+1
+    RESTARTSAMPLE
 
-	lda #<_bwrt2
-	sta _ptr_wrt2
-	lda #>_bwrt2
-	sta _ptr_wrt2+1
-
-	lda #<_bwrt3
-	sta _ptr_wrt3
-	lda #>_bwrt3
-	sta _ptr_wrt3+1
-
-	lda #0
-	sta _position_low
-	sta _position_high
-
-skipResume
+skipRestart
 
 task4kHz_done
 .)
@@ -112,4 +93,6 @@ task4kHz_done
     jsr detectKeyEvent:\
     pla:tay:pla:tax:pla:\
 .)
+
+
 
