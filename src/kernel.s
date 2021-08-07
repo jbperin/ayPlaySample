@@ -19,7 +19,7 @@ itCounter			.byt 0
 
 .text
 
-jmp_old_handler		.dsb 2
+old_handler			.dsb 2
 
 .dsb 256-(*&255)
 
@@ -55,9 +55,9 @@ _kernelInit_4kHz:
 
 	; Save the old handler value
 	lda $245
-	sta jmp_old_handler+1
+	sta old_handler
 	lda $246
-	sta jmp_old_handler+2
+	sta old_handler+1
 
 
 	lda 	#160 ; 4000 / 25 Hz
@@ -88,9 +88,9 @@ _kernelEnd:
 .(
 	sei
 	; Restore the old handler value
-	lda jmp_old_handler+1
+	lda old_handler
 	sta $245
-	lda jmp_old_handler+2
+	lda old_handler+1
 	sta $246
 
 	;; Restore  VIA parameters
