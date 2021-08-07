@@ -57,7 +57,8 @@ thirval
 endval
 
 
-    inc     _position_low
+    iny
+    sty     _position_low    
 
     bne     skipNext256
 
@@ -69,8 +70,7 @@ endval
 
 skipNext256
 
-    lda     _position_low
-    cmp     #<NB_SAMPLE 
+    cpy     #<NB_SAMPLE 
     bne     skipRestart
 
     lda     _position_high
