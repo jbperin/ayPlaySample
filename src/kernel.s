@@ -23,7 +23,6 @@ itCounter			.byt 0
 
 old_handler			.dsb 2
 
-.dsb 256-(*&255)
 
 irq_handler_4khz:
 .(
@@ -51,6 +50,22 @@ not100Hz
 	rti
 .)
 
+;; std2alt:
+;; .(
+;; ldx #0
+;; loop 
+;; lda $b400,x 
+;; sta $b800,x 
+;; lda $b500,x
+;; sta $b900,x
+;; lda $b600,x
+;; sta $ba00,x
+;; lda $b700,x
+;; sta $bb00,x 
+;; inx
+;; bne loop
+;; .)
+;; rts
 _kernelInit_4kHz:
 .(
 	sei
@@ -78,7 +93,7 @@ _kernelInit_4kHz:
 	lda 	#>irq_handler_4khz
 	sta 	$246
 
-
+	; jsr std2alt
 	RESTARTSAMPLE
 
     cli 
