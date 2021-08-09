@@ -1,7 +1,11 @@
 
-from Welcome import Out
+from LetItWhip import Out
 OUTPUT_FILENAME     = 'src/soundbuf.s'
 OUTPUT_MACRO        = 'src/nbsample.h'
+
+START_CHAN_A    = 12 # 9
+START_CHAN_B    = 12 # 12
+START_CHAN_C    = 12 # 15
 
 
 from codegen import buffer2asmCode
@@ -75,12 +79,12 @@ def model (state):
 
 def main ():
 
-    print (len(Out))
-    print (Out)
+    print (len(Out), " echantillons" )
+    # print (Out)
 
-    wrt1 = [(0,5)]
-    wrt2 = [(1,12)]
-    wrt3 = [(2,15)]
+    wrt1 = [(0,START_CHAN_A)]
+    wrt2 = [(1,START_CHAN_B)]
+    wrt3 = [(2,START_CHAN_C)]
 
     (idx, val) = Out[0]
     if idx == 0:

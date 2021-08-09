@@ -6,6 +6,9 @@ logging.basicConfig(format=format, level=logging.INFO,
                     datefmt="%H:%M:%S")
 
 
+START_CHAN_A    = 12 # 9
+START_CHAN_B    = 12 # 12
+START_CHAN_C    = 12 # 15
 
 #FILENAME = 'util/shrtsmp_u8_4k.wav' # 'util/loop_mono_8k_u8pcm.wav' # 
 #OUTPUT_FILENAME = "util/OutVal3.py"
@@ -13,8 +16,11 @@ logging.basicConfig(format=format, level=logging.INFO,
 #FILENAME = 'util/one-step_4k_u8pcm.wav' # 'util/loop_mono_8k_u8pcm.wav' # 
 #OUTPUT_FILENAME = "util/OneStep.py"
 
-FILENAME = 'util/Welcome_8k_u8pcm.wav'
-OUTPUT_FILENAME = "util/Welcome.py"
+#FILENAME = 'util/Welcome_8k_u8pcm.wav'
+#OUTPUT_FILENAME = "util/Welcome.py"
+
+FILENAME = 'util/LetItWhip_8k_u8pcm.wav'
+OUTPUT_FILENAME = "util/LetItWhip.py"
 
 # Your new sampling rate
 new_rate = 4000 # 8000 #
@@ -28,7 +34,7 @@ NB_CYCLE_03 = 51
 DELAY_01 = NB_CYCLE_02/FREQUENCE_PROCESSEUR 
 DELAY_02 = NB_CYCLE_03/FREQUENCE_PROCESSEUR 
 
-MAX_LEVEL = 1.15
+MAX_LEVEL = 2.225
 NB_VAL = 16
 
 def extractValueSet2(model):
@@ -223,7 +229,7 @@ for t in range (len(np_new_times)):
 # print (V)
 
 Out = [(0,0)] * len(I)
-S=[9, 12, 15]
+S=[START_CHAN_A, START_CHAN_B, START_CHAN_C]
 for t in range (len(np_new_times)):
     idxs = [i[0] for i in sorted(enumerate(S), key=lambda x:x[1])]
     if (I[t] <= 15):
