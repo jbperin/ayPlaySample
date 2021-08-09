@@ -25,11 +25,7 @@ void lsys(){
 
 void main()
 {
-	int 	mode0;
-
-    // Deactivate cursor and keyclick
-    mode0 = peek(0x26A);poke(0x26A, (mode0 | 0x08) & 0xFE);
-
+	lores1();
 	ayInit();
 
 	kernelInit_4kHz();
@@ -37,9 +33,5 @@ void main()
 	for (running = 1; running; ) lsys();
 
 	kernelEnd();
-
-    // Reactivate cursor and keyclick
-    poke(0x26A, mode0);
-
 }
 
