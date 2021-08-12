@@ -19,8 +19,17 @@ START_CHAN_C    = 12 # 15
 #FILENAME = 'util/Welcome_8k_u8pcm.wav'
 #OUTPUT_FILENAME = "util/Welcome.py"
 
-FILENAME = 'util/LetItWhip_8k_u8pcm.wav'
-OUTPUT_FILENAME = "util/LetItWhip.py"
+#FILENAME = 'util/LetItWhip_8k_u8pcm.wav'
+#OUTPUT_FILENAME = "util/LetItWhip.py"
+
+#FILENAME = 'util/SuperFreak_8k_u8pcm.wav'
+#OUTPUT_FILENAME = "util/SuperFreak.py"
+
+#FILENAME = 'util/one-step_4k_u8pcm.wav'
+#OUTPUT_FILENAME = "util/OneStep.py"
+
+FILENAME = 'util/TheLargeMemory_8k_u8pcm.wav'
+OUTPUT_FILENAME = "util/TheLargeMemory.py"
 
 # Your new sampling rate
 new_rate = 4000 # 8000 #
