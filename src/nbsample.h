@@ -1,1 +1,1 @@
-#define NB_SAMPLE 14530
+#define NB_SAMPLE 9440

@@ -1,5 +1,5 @@
 
-from LetItWhip import Out
+from TheLargeMemory import Out
 OUTPUT_FILENAME     = 'src/soundbuf.s'
 OUTPUT_MACRO        = 'src/nbsample.h'
 
