@@ -11,9 +11,9 @@
 .zero
 
 ; Interruption Context Saving 
-irq_A               .byt 0
-irq_X               .byt 0
-irq_Y               .byt 0
+; irq_A               .byt 0
+; irq_X               .byt 0
+; irq_Y               .byt 0
 
 #ifdef USE_KEYBOARD_INTERRUPT
 itCounter			.byt 0
@@ -28,7 +28,8 @@ irq_handler_4khz:
 .(
 
 	;Preserve registers 
-	sta 	irq_A: stx 	irq_X: sty 	irq_Y
+;	sta 	irq_A: stx 	irq_X: sty 	irq_Y
+    pha:txa:pha:tya:pha
 
 	jsr TASK_4KHZ ;  TASK_4KHZ_4BITS ; 
 
@@ -45,27 +46,29 @@ not100Hz
 #endif // USE_KEYBOARD_INTERRUPT
 
 	;Restore Registers 
-	lda irq_A: ldx 	irq_X: ldy 	irq_Y
+;	lda irq_A: ldx 	irq_X: ldy 	irq_Y
+    pla:tay:pla:tax:pla
 
 	rti
 .)
 
 ;; std2alt:
 ;; .(
-;; ldx #0
-;; loop 
-;; lda $b400,x 
-;; sta $b800,x 
-;; lda $b500,x
-;; sta $b900,x
-;; lda $b600,x
-;; sta $ba00,x
-;; lda $b700,x
-;; sta $bb00,x 
-;; inx
-;; bne loop
+;; 	ldx #0
+;; 	loop 
+;; 	lda $b400,x 
+;; 	sta $b800,x 
+;; 	lda $b500,x
+;; 	sta $b900,x
+;; 	lda $b600,x
+;; 	sta $ba00,x
+;; 	lda $b700,x
+;; 	sta $bb00,x 
+;; 	inx
+;; 	bne loop
 ;; .)
 ;; rts
+
 _kernelInit_4kHz:
 .(
 	sei

@@ -85,10 +85,8 @@ task4kHz_done
 
 #ifdef USE_KEYBOARD_INTERRUPT
 #define TASK_25Hz :.(:\
-    pha:txa:pha:tya:pha:\
     jsr ReadKeyboard:\
     jsr detectKeyEvent:\
-    pla:tay:pla:tax:pla:\
 .)
 #endif //USE_KEYBOARD_INTERRUPT
 

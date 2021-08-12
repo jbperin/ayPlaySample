@@ -25,7 +25,7 @@ void lsys(){
 
 void main()
 {
-	lores1();
+	cls();
 	ayInit();
 
 	kernelInit_4kHz();
